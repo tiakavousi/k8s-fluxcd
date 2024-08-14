@@ -13,6 +13,10 @@ http.createServer(function (request, response) {
         color = "white"
         console.log('Change color to:', color);
     }
+    if (request.url === '/green') {
+        color = "green"
+        console.log('Change color to:', color);
+    }
 
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write('<html>' +
@@ -27,6 +31,7 @@ http.createServer(function (request, response) {
         '        <h2>Running on ' + fqdn + '</h2>' +
         '        <h2><a href="red">red</a></h2>' +
         '        <h2><a href="white">white</a></h2>' +
+        '        <h2><a href="green">green</a></h2>' +
         '    <body>' +
         '</html>');
     response.end();
