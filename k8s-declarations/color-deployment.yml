@@ -1,0 +1,120 @@
+# kubectl create -f color-deployment.yml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: app-green
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        color: green
+    spec:
+      containers:
+      - image: registry.diginfra.net/lwo/k8s-demo-color:1.0.0
+        name: green
+        env:
+        - name: "COLOR_BACKGROUND"
+          value: "green"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: app-white
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        color: white
+    spec:
+      containers:
+      - image: registry.diginfra.net/lwo/k8s-demo-color:1.0.0
+        name: white
+        env:
+        - name: "COLOR_BACKGROUND"
+          value: "white"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: app-red
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        color: red
+    spec:
+      containers:
+        - image: registry.diginfra.net/lwo/k8s-demo-color:1.0.0
+          name: red
+          env:
+            - name: "COLOR_BACKGROUND"
+              value: "red"
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: app-black
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        color: black
+    spec:
+      containers:
+        - image: registry.diginfra.net/lwo/k8s-demo-color:1.0.0
+          name: black
+          env:
+            - name: "COLOR_BACKGROUND"
+              value: "black"
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: app-blue
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        color: blue
+    spec:
+      containers:
+        - image: registry.diginfra.net/lwo/k8s-demo-color:1.0.0
+          name: blue
+          env:
+            - name: "COLOR_BACKGROUND"
+              value: "blue"
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: app-yellow
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        color: yellow
+    spec:
+      containers:
+        - image: registry.diginfra.net/lwo/k8s-demo-color:1.0.0
+          name: green
+          env:
+            - name: "COLOR_BACKGROUND"
+              value: "yellow"
+          ports:
+            - containerPort: 8080
