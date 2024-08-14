@@ -1,7 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: qa
+  annotations:
+    name: qa
+---
 kind: Pod
 apiVersion: v1
 metadata:
   name: foo-app
+  namespace: qa
   labels:
     app: http-echo
 spec:
@@ -15,6 +23,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: bar-app
+  namespace: qa
   labels:
     app: http-echo
 spec:
@@ -28,6 +37,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: foo-service
+  namespace: qa
 spec:
   type: LoadBalancer
   selector:
