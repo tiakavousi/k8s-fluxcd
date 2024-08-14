@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: color-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /red(/|$)(.*)
+        backend:
+          service:
+            name: color-app
+            port:
+              number: 8080
+      - pathType: Prefix
+        path: /white(/|$)(.*)
+        backend:
+          service:
+            name: color-app
+            port:
+              number: 8080
