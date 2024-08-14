@@ -93,6 +93,11 @@ git commit -m "add k8s-fluxcd source"
 git push origin master
 
 # verify
-flux reconcile source git simplephone
+flux reconcile source git k8s-fluxcd
 watch kubectl get -n flux-system gitrepositories
+```
+
+## Watch the Kustomization
+```
+watch flux get kustomizations
 ```
