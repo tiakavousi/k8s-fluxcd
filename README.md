@@ -30,3 +30,51 @@ http://localhost/white/hostname
 ```
 
 # Flux CD
+```
+brew install fluxcd/tap/flux
+
+export GITHUB_TOKEN=<your-token>
+export GITHUB_USER=<your-username>
+export GITHUB_REPO=<repo-name>
+
+flux check --pre
+
+
+flux bootstrap github \
+    --owner="${GITHUB_USER}" \
+    --repository="${GITHUB_REPO}" \
+    --private=false \
+    --path=./clusters/cluster1 \
+    --personal \
+    --token-auth \
+    --branch=master
+```
+
+## Create a flux secret
+```
+flux create secret git k8s-fluxcd-secret \
+    --url=ssh://git@github.com/${GITHUB_USER}/${GITHUB_REPO}
+```
+
+## Add below Deploy key into Github repo(Settings -> Deploy Keys):
+```
+kubectl get secret k8s-fluxcd-secret -n flux-system -ojson \
+    | jq -r '.data."identity.pub"' | base64 -d
+
+```
+
+## Create a flux source:
+```
+# git clone git@github.com:afshinp-deriv/k8s-fluxcd.git
+# cd k8s-fluxcd
+
+flux create source git k8s-fluxcd \
+    --url=ssh://git@github.com/${GITHUB_USER}/${GITHUB_REPO} \
+    --secret-ref k8s-fluxcd-secret \
+    --branch=master \
+    --export > ./clusters/cluster1/k8s-fluxcd.yaml
+
+# Verify
+flux get source git
+cat ./clusters/cluster1/k8s-fluxcd.yaml
+```
