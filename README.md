@@ -89,7 +89,7 @@ flux create kustomization k8s-fluxcd \
   --export > ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
 
 git add ./clusters/cluster1/k8s-fluxcd.yaml ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
-git commit -m "add simplephone source"
+git commit -m "add k8s-fluxcd source"
 git push origin master
 
 # verify
