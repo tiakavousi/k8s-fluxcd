@@ -78,3 +78,21 @@ flux create source git k8s-fluxcd \
 flux get source git
 cat ./clusters/cluster1/k8s-fluxcd.yaml
 ```
+
+## Create flux kustomization and push changes into deployment repo(GitOps):
+```
+flux create kustomization k8s-fluxcd \
+  --source=k8s-fluxcd \
+  --path=./prod \
+  --prune=true \
+  --interval=1m \
+  --export > ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
+
+git add ./clusters/cluster1/k8s-fluxcd.yaml ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
+git commit -m "add simplephone source"
+git push origin master
+
+# verify
+flux reconcile source git simplephone
+watch kubectl get -n flux-system gitrepositories
+```
