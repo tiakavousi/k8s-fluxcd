@@ -16,7 +16,7 @@ spec:
         app: color
     spec:
       containers:
-      - image: phantasm/color-app:1.0.0
+      - image: phantasm/color-app:1.0.1
         name: white
         env:
         - name: "COLOR_BACKGROUND"
