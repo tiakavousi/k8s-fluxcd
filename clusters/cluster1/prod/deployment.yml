@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: color-app
+  namespace: default
   labels:
     app: color
 spec:
