@@ -28,7 +28,7 @@ flux check --pre
 
 flux bootstrap github \
     --owner="${GITHUB_USER}" \
-    --repository="${GITHUB_REPO}" \
+    --repository=k8s-fluxcd \
     --private=false \
     --path=./clusters/cluster1 \
     --personal \
@@ -69,7 +69,7 @@ cat ./clusters/cluster1/k8s-fluxcd.yaml
 ```
 flux create kustomization k8s-fluxcd \
   --source=k8s-fluxcd \
-  --path=./prod \
+  --path=./clusters/cluster1/prod \
   --prune=true \
   --interval=1m \
   --export > ./clusters/cluster1/prod/k8s-fluxcd-kustomization.yaml
