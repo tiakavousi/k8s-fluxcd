@@ -10,14 +10,7 @@ spec:
   - http:
       paths:
       - pathType: Prefix
-        path: /red(/|$)(.*)
-        backend:
-          service:
-            name: color-app
-            port:
-              number: 8080
-      - pathType: Prefix
-        path: /white(/|$)(.*)
+        path: /prod/(.*)
         backend:
           service:
             name: color-app
