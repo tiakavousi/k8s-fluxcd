@@ -5,9 +5,9 @@ metadata:
   name: k8s-fluxcd
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 1s
   path: ./clusters/cluster1/qa
   prune: true
   sourceRef:
     kind: GitRepository
-    name: k8s-fluxcd
+    name: k8s-fluxcd-qa
