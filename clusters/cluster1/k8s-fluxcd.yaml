@@ -10,4 +10,4 @@ spec:
     branch: master
   secretRef:
     name: k8s-fluxcd-secret
-  url: ssh://git@github.com/afshin-deriv/k8s-fluxcd
+  url: ssh://git@github.com/tiakavousi/k8s-fluxcd
