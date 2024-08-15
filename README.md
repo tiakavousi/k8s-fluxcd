@@ -69,10 +69,10 @@ cat ./clusters/cluster1/k8s-fluxcd.yaml
 ```
 flux create kustomization k8s-fluxcd \
   --source=k8s-fluxcd \
-  --path=./clusters/cluster1/prod \
+  --path=./clusters/cluster1/qa \
   --prune=true \
   --interval=1m \
-  --export > ./clusters/cluster1/prod/k8s-fluxcd-kustomization.yaml
+  --export > ./clusters/cluster1/qa/k8s-fluxcd-kustomization.yaml
 
 git add ./clusters/cluster1/k8s-fluxcd.yaml ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
 git commit -m "add k8s-fluxcd source"
@@ -90,7 +90,7 @@ watch flux get kustomizations
 
 # Development Test (Browse)
 ```
-http://localhost/red/hostname
+http://localhost/prod/hostname
 or
-http://localhost/white/hostname
+http://localhost/qa/hostname
 ```

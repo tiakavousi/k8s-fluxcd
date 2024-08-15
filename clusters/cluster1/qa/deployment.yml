@@ -5,6 +5,7 @@ metadata:
   namespace: qa
   labels:
     app: color
+    environment: qa
 spec:
   replicas: 2
   selector:
