@@ -5,6 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: https://github.com/tiakavousi/k8s-fluxcd.git
+  # url: https://github.com/tiakavousi/k8s-fluxcd.git
+  url: ssh://git@github.com:tiakavousi/k8s-fluxcd.git
   ref:
     branch: master
