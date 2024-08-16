@@ -72,7 +72,7 @@ flux create kustomization k8s-fluxcd \
   --path=./clusters/cluster1/qa \
   --prune=true \
   --interval=1m \
-  --export > ./clusters/cluster1/qa/k8s-fluxcd-kustomization.yaml
+  --export > ./clusters/cluster1/qa
 
 git add ./clusters/cluster1/k8s-fluxcd.yaml ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
 git commit -m "add k8s-fluxcd source"

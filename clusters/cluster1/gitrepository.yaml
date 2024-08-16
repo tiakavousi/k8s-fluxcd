@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: k8s-fluxcd
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: https://github.com/tiakavousi/k8s-fluxcd.git
+  ref:
+    branch: master

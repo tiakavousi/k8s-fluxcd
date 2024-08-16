@@ -1,0 +1,129 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  creationTimestamp: "2024-08-15T15:55:44Z"
+  finalizers:
+  - finalizers.fluxcd.io
+  generation: 2
+  labels:
+    kustomize.toolkit.fluxcd.io/name: flux-system
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
+  name: flux-system
+  namespace: flux-system
+  resourceVersion: "26293"
+  uid: c9396f2d-cf6f-4fea-bb6c-990406f9aabb
+spec:
+  force: false
+  interval: 10m0s
+  path: ./clusters/cluster1
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  suspend: true
+status:
+  conditions:
+  - lastTransitionTime: "2024-08-16T03:29:10Z"
+    message: Building manifests for revision master@sha1:e168c23a663eae2a7e02458987b6958b2e5c2a3e
+      with a timeout of 9m30s
+    observedGeneration: 2
+    reason: ProgressingWithRetry
+    status: "True"
+    type: Reconciling
+  - lastTransitionTime: "2024-08-16T03:29:10Z"
+    message: 'kustomize build failed: accumulating resources: accumulation err=''merging
+      resources from ''./qa/k8s-fluxcd-kustomization.yaml'': may not add resource
+      with an already registered id: Kustomization.v1.kustomize.toolkit.fluxcd.io/k8s-fluxcd.flux-system'':
+      must build at directory: ''/tmp/kustomization-2462429769/clusters/cluster1/qa/k8s-fluxcd-kustomization.yaml'':
+      file is not directory'
+    observedGeneration: 1
+    reason: BuildFailed
+    status: "False"
+    type: Ready
+  inventory:
+    entries:
+    - id: _alerts.notification.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _buckets.source.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _gitrepositories.source.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _helmcharts.source.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _helmreleases.helm.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _helmrepositories.source.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _kustomizations.kustomize.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _ocirepositories.source.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _providers.notification.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _receivers.notification.toolkit.fluxcd.io_apiextensions.k8s.io_CustomResourceDefinition
+      v: v1
+    - id: _flux-system__Namespace
+      v: v1
+    - id: _prod__Namespace
+      v: v1
+    - id: _qa__Namespace
+      v: v1
+    - id: flux-system_critical-pods-flux-system__ResourceQuota
+      v: v1
+    - id: flux-system_helm-controller__ServiceAccount
+      v: v1
+    - id: flux-system_kustomize-controller__ServiceAccount
+      v: v1
+    - id: flux-system_notification-controller__ServiceAccount
+      v: v1
+    - id: flux-system_source-controller__ServiceAccount
+      v: v1
+    - id: _crd-controller-flux-system_rbac.authorization.k8s.io_ClusterRole
+      v: v1
+    - id: _flux-edit-flux-system_rbac.authorization.k8s.io_ClusterRole
+      v: v1
+    - id: _flux-view-flux-system_rbac.authorization.k8s.io_ClusterRole
+      v: v1
+    - id: _cluster-reconciler-flux-system_rbac.authorization.k8s.io_ClusterRoleBinding
+      v: v1
+    - id: _crd-controller-flux-system_rbac.authorization.k8s.io_ClusterRoleBinding
+      v: v1
+    - id: flux-system_notification-controller__Service
+      v: v1
+    - id: flux-system_source-controller__Service
+      v: v1
+    - id: flux-system_webhook-receiver__Service
+      v: v1
+    - id: prod_color-app__Service
+      v: v1
+    - id: qa_color-app__Service
+      v: v1
+    - id: flux-system_helm-controller_apps_Deployment
+      v: v1
+    - id: flux-system_kustomize-controller_apps_Deployment
+      v: v1
+    - id: flux-system_notification-controller_apps_Deployment
+      v: v1
+    - id: flux-system_source-controller_apps_Deployment
+      v: v1
+    - id: prod_color-app_apps_Deployment
+      v: v1
+    - id: qa_color-app_apps_Deployment
+      v: v1
+    - id: flux-system_flux-system_kustomize.toolkit.fluxcd.io_Kustomization
+      v: v1
+    - id: prod_color-app_networking.k8s.io_Ingress
+      v: v1
+    - id: qa_color-app_networking.k8s.io_Ingress
+      v: v1
+    - id: flux-system_allow-egress_networking.k8s.io_NetworkPolicy
+      v: v1
+    - id: flux-system_allow-scraping_networking.k8s.io_NetworkPolicy
+      v: v1
+    - id: flux-system_allow-webhooks_networking.k8s.io_NetworkPolicy
+      v: v1
+    - id: flux-system_flux-system_source.toolkit.fluxcd.io_GitRepository
+      v: v1
+  lastAppliedRevision: master@sha1:7d93d1cb1279146a348f5f2c26095e5863f4e92e
+  lastAttemptedRevision: master@sha1:e168c23a663eae2a7e02458987b6958b2e5c2a3e
+  observedGeneration: 1
