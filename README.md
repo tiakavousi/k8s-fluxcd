@@ -43,14 +43,15 @@ flux bootstrap github \
 
 ## Create a flux secret
 ```
-flux create secret git k8s-fluxcd-secret \
-    --url=ssh://git@github.com/${GITHUB_USER}/${GITHUB_REPO}
+kubectl create secret generic k8s-fluxcd-secret \
+    --from-file=identity=/Users/tayebekavousi/.ssh/k8s-fluxcd-key \
+    --from-file=identity.pub=/Users/tayebekavousi/.ssh/k8s-fluxcd-key.pub \
+    -n flux-system
 ```
 
 ## Add below Deploy key into Github repo(Settings -> Deploy Keys):
 ```
-kubectl get secret k8s-fluxcd-secret -n flux-system -ojson \
-    | jq -r '.data."identity.pub"' | base64 -d
+ kubectl get secret k8s-fluxcd-secret -n flux-system -o yaml
 
 ```
 
