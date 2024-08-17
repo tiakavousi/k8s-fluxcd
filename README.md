@@ -36,12 +36,24 @@ flux bootstrap github \
 
 ```
 
-## Create a flux secret
+## Create a flux secret for flux-system, prod, qa nanespaces:
 ```
 kubectl create secret generic k8s-fluxcd-secret \
     --from-file=identity=/Users/tayebekavousi/.ssh/k8s-fluxcd-key \
     --from-file=identity.pub=/Users/tayebekavousi/.ssh/k8s-fluxcd-key.pub \
     -n flux-system
+
+kubectl create secret generic k8s-fluxcd-secret \
+  --from-file=identity=/Users/tayebekavousi/.ssh/k8s-fluxcd-key \
+  --from-file=identity.pub=/Users/tayebekavousi/.ssh/k8s-fluxcd-key.pub \
+  --from-file=known_hosts=./known_hosts \
+  -n prod --dry-run=client -o yaml | kubectl apply -f -
+
+kubectl create secret generic k8s-fluxcd-secret \
+  --from-file=identity=/Users/tayebekavousi/.ssh/k8s-fluxcd-key \
+  --from-file=identity.pub=/Users/tayebekavousi/.ssh/k8s-fluxcd-key.pub \
+  --from-file=known_hosts=./known_hosts \
+  -n qa --dry-run=client -o yaml | kubectl apply -f -
 ```
 
 ## Add below Deploy key into Github repo(Settings -> Deploy Keys):
@@ -50,7 +62,7 @@ kubectl create secret generic k8s-fluxcd-secret \
 
 ```
 
-## Create a flux source:
+## Create a flux source in each namespace
 ```
 # git clone git@github.com:afshinp-deriv/k8s-fluxcd.git
 # cd k8s-fluxcd
@@ -61,26 +73,48 @@ flux create source git k8s-fluxcd \
     --branch=master \
     --export > ./clusters/cluster1/gitrepository.yaml
 
+flux create source git k8s-fluxcd-prod \
+  --url=ssh://git@github.com/tiakavousi/k8s-fluxcd.git \
+  --secret-ref k8s-fluxcd-secret \
+  --branch=master \
+  --namespace=prod \
+  --export > ./clusters/cluster1/prod/gitrepository-prod.yaml
+
+flux create source git k8s-fluxcd\
+  --url=ssh://git@github.com/tiakavousi/k8s-fluxcd.git \
+  --secret-ref k8s-fluxcd-secret \
+  --branch=master \
+  --namespace=qa \
+  --export > ./clusters/cluster1/qa/gitrepository-qa.yaml
+
 # Verify
 flux get source git
-cat ./clusters/cluster1/k8s-fluxcd.yaml
+cat ./clusters/cluster1/gitrepository.yaml
 ```
 
 ## Create flux kustomization and push changes into deployment repo(GitOps):
 ```
-flux create kustomization k8s-fluxcd \
+flux create kustomization k8s-fluxcd-prod \
   --source=k8s-fluxcd \
   --path=./clusters/cluster1/prod \
   --prune=true \
   --interval=1m \
+  --namespace=prod \
   --export > ./clusters/cluster1/prod/kustomization-prod.yaml
 
-flux create kustomization k8s-fluxcd \
+
+kubectl apply -f ./clusters/cluster1/prod/kustomization-prod.yaml
+
+
+flux create kustomization k8s-fluxcd-qa \
   --source=k8s-fluxcd \
   --path=./clusters/cluster1/qa \
   --prune=true \
   --interval=1m \
+  --namespace=qa \
   --export > ./clusters/cluster1/qa/kustomization-qa.yaml
+
+kubectl apply -f ./clusters/cluster1/qa/kustomization-qa.yaml
 
 git add ./clusters/cluster1/k8s-fluxcd.yaml ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
 git commit -m "add k8s-fluxcd source"
