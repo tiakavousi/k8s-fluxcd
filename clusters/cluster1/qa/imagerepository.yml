@@ -1,0 +1,9 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: color-app
+  namespace: qa
+spec:
+  image: tayebe/color-app
+  interval: 1m
+  provider: generic

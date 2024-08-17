@@ -27,13 +27,18 @@ flux check --pre
 
 
 flux bootstrap github \
-    --owner="${GITHUB_USER}" \
-    --repository=k8s-fluxcd \
-    --private=false \
-    --path=./clusters/cluster1 \
+    --owner="tiakavousi" \
+    --repository="k8s-fluxcd" \
+    --branch="master" \
+    --path="./clusters/cluster1" \
     --personal \
+    --private=false \
     --token-auth \
-    --branch=master
+    --ssh-key-algorithm=ecdsa \
+    --secret-name=k8s-fluxcd-secret \
+    --components=source-controller,kustomize-controller,helm-controller,notification-controller,image-reflector-controller,image-automation-controller
+
+
 ```
 
 ## Create a flux secret
@@ -69,6 +74,13 @@ cat ./clusters/cluster1/k8s-fluxcd.yaml
 ```
 flux create kustomization k8s-fluxcd \
   --source=k8s-fluxcd \
+  --path=./clusters/cluster1/prod \
+  --prune=true \
+  --interval=1m \
+  --export > ./clusters/cluster1/prod
+
+flux create kustomization k8s-fluxcd \
+  --source=k8s-fluxcd \
   --path=./clusters/cluster1/qa \
   --prune=true \
   --interval=1m \
@@ -82,6 +94,12 @@ git push origin master
 flux reconcile source git k8s-fluxcd
 watch kubectl get -n flux-system gitrepositories
 ```
+
+# imagerepository
+```
+kubectl apply -f clusters/cluster1/qa/imagerepository.yml
+kubectl get imagerepository -n qa
+````
 
 ## Watch the Kustomization
 ```
