@@ -6,8 +6,10 @@ metadata:
   namespace: qa
 spec:
   interval: 1m0s
+  targetNamespace: qa
   path: ./clusters/cluster1/qa
-  prune: true
   sourceRef:
     kind: GitRepository
     name: k8s-fluxcd
+  timeout: 1m
+  prune: true
