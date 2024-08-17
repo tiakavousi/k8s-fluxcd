@@ -25,6 +25,16 @@ export GITHUB_REPO=<repo-name>
 
 flux check --pre
 
+flux bootstrap github \
+    --owner="${GITHUB_USER}" \
+    --repository="${GITHUB_REPO}" \
+    --private=false \
+    --path=./clusters/cluster1 \
+    --personal \
+    --token-auth \
+    --branch=master 
+
+
 
 flux bootstrap github \
     --owner="tiakavousi" \
@@ -33,12 +43,19 @@ flux bootstrap github \
     --path="./clusters/cluster1" \
     --personal \
     --private=false \
-    --token-auth \
     --ssh-key-algorithm=ecdsa \
+    --private-key-file="/Users/tayebekavousi/.ssh/k8s-fluxcd-key" \
     --secret-name=k8s-fluxcd-secret \
     --components=source-controller,kustomize-controller,helm-controller,notification-controller,image-reflector-controller,image-automation-controller
 
-
+flux bootstrap github \
+    --owner="tiakavousi" \
+    --repository="k8s-fluxcd" \
+    --branch="master" \
+    --path="./clusters/cluster1" \
+    --token-auth=true \
+    --secret-name=k8s-fluxcd-secret \
+    --components=source-controller,kustomize-controller,helm-controller,notification-controller,image-reflector-controller,image-automation-controller
 ```
 
 ## Create a flux secret
@@ -78,14 +95,14 @@ flux create kustomization k8s-fluxcd \
   --path=./clusters/cluster1/prod \
   --prune=true \
   --interval=1m \
-  --export > ./clusters/cluster1/prod
+  --export > ./clusters/cluster1/prod/kustomization-prod.yaml
 
 flux create kustomization k8s-fluxcd \
   --source=k8s-fluxcd \
   --path=./clusters/cluster1/qa \
   --prune=true \
   --interval=1m \
-  --export > ./clusters/cluster1/qa
+  --export > ./clusters/cluster1/qa/kustomization-qa.yaml
 
 git add ./clusters/cluster1/k8s-fluxcd.yaml ./clusters/cluster1/k8s-fluxcd-kustomization.yaml
 git commit -m "add k8s-fluxcd source"
