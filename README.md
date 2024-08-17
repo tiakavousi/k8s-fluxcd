@@ -34,28 +34,6 @@ flux bootstrap github \
     --token-auth \
     --branch=master 
 
-
-
-flux bootstrap github \
-    --owner="tiakavousi" \
-    --repository="k8s-fluxcd" \
-    --branch="master" \
-    --path="./clusters/cluster1" \
-    --personal \
-    --private=false \
-    --ssh-key-algorithm=ecdsa \
-    --private-key-file="/Users/tayebekavousi/.ssh/k8s-fluxcd-key" \
-    --secret-name=k8s-fluxcd-secret \
-    --components=source-controller,kustomize-controller,helm-controller,notification-controller,image-reflector-controller,image-automation-controller
-
-flux bootstrap github \
-    --owner="tiakavousi" \
-    --repository="k8s-fluxcd" \
-    --branch="master" \
-    --path="./clusters/cluster1" \
-    --token-auth=true \
-    --secret-name=k8s-fluxcd-secret \
-    --components=source-controller,kustomize-controller,helm-controller,notification-controller,image-reflector-controller,image-automation-controller
 ```
 
 ## Create a flux secret
@@ -81,7 +59,7 @@ flux create source git k8s-fluxcd \
     --url=ssh://git@github.com/${GITHUB_USER}/${GITHUB_REPO} \
     --secret-ref k8s-fluxcd-secret \
     --branch=master \
-    --export > ./clusters/cluster1/k8s-fluxcd.yaml
+    --export > ./clusters/cluster1/gitrepository.yaml
 
 # Verify
 flux get source git

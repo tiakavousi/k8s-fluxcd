@@ -1,3 +1,4 @@
+---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
@@ -5,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: https://github.com/tiakavousi/k8s-fluxcd.git
   ref:
     branch: master
+  secretRef:
+    name: k8s-fluxcd-secret
+  url: ssh://git@github.com/tiakavousi/k8s-fluxcd
