@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: white
-        image: tayebe/color-app:1.0.8
+        image: tayebe/color-app:1.0.7
         env:
         - name: "COLOR_BACKGROUND"
           value: "white"
