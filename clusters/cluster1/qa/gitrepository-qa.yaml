@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: k8s-fluxcd
+  name: k8s-fluxcd-qa
   namespace: qa
 spec:
   interval: 1m0s
