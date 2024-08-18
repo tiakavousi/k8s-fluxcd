@@ -7,6 +7,7 @@ metadata:
     app: color
     environment: prod
 spec:
+  progressDeadlineSeconds: 100
   replicas: 2
   selector:
     matchLabels:
@@ -28,5 +29,5 @@ spec:
           httpGet:
             path: /healthz
             port: 8080
-          initialDelaySeconds: 5
+          initialDelaySeconds: 15
           periodSeconds: 10
