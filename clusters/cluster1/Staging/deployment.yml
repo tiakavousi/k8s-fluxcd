@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: color-app
-  namespace: qa
+  namespace: staging
   labels:
     app: color
-    environment: qa
+    environment: staging
 spec:
   replicas: 2
   selector:
